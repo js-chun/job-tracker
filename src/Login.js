@@ -1,6 +1,7 @@
 import React, { useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { useInput } from "./hooks/useInput"
+import { useFormik } from "formik"
+import * as Yup from "yup"
 import { auth } from "./firebase"
 import { useAuthState } from "react-firebase-hooks/auth"
 import { logInWithEmailAndPassword, logInWithGoogle } from "./authentication"
@@ -13,8 +14,19 @@ import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 
 function Login() {
-	const [emailInput, handleEmailChange, resetEmail] = useInput("")
-	const [passwordInput, handlePasswordChange, resetPassword] = useInput("")
+	const formik = useFormik({
+		initialValues: {
+			email: "",
+			password: "",
+		},
+		validationSchema: Yup.object({
+			email: Yup.string().required("Username is required"),
+			password: Yup.string().required("Password is required"),
+		}),
+		onSubmit: (values) => {
+			logInWithEmailAndPassword(values.email, values.password)
+		},
+	})
 	const [user, loading, error] = useAuthState(auth)
 	const navigate = useNavigate()
 
@@ -25,13 +37,6 @@ function Login() {
 		}
 		if (user) navigate("/main")
 	}, [user, loading])
-
-	const handleSubmit = (evt) => {
-		evt.preventDefault()
-		logInWithEmailAndPassword(emailInput, passwordInput)
-		resetEmail()
-		resetPassword()
-	}
 
 	return (
 		<Container>
@@ -46,14 +51,17 @@ function Login() {
 							width={300}
 						/>
 					</div>
-					<div className="d-grid gap-2 my-3 d-flex">
+					<div className="d-grid gap-2 my-3 d-flex flex-column align-items-center">
 						<span>Login using social networks:</span>
-						<button onClick={logInWithGoogle}>
+						<button onClick={logInWithGoogle} className="btn btn-sns">
 							<ion-icon name="logo-google"></ion-icon>
 						</button>
 					</div>
 					<hr />
-					<Form className="text-start" onSubmit={handleSubmit}>
+					<Form
+						noValidate
+						className="text-start"
+						onSubmit={formik.handleSubmit}>
 						<FloatingLabel
 							controlId="floatingUser"
 							label="Email address"
@@ -61,9 +69,12 @@ function Login() {
 							<Form.Control
 								type="email"
 								placeholder="Email address"
-								value={emailInput}
-								onChange={handleEmailChange}
+								{...formik.getFieldProps("email")}
+								isInvalid={formik.touched.email && formik.errors.email}
 							/>
+							<Form.Control.Feedback type="invalid">
+								{formik.errors.email}
+							</Form.Control.Feedback>
 						</FloatingLabel>
 
 						<FloatingLabel
@@ -73,15 +84,17 @@ function Login() {
 							<Form.Control
 								type="password"
 								placeholder="Password"
-								value={passwordInput}
-								onChange={handlePasswordChange}
+								{...formik.getFieldProps("password")}
+								isInvalid={formik.touched.password && formik.errors.password}
 							/>
+							<Form.Control.Feedback type="invalid">
+								{formik.errors.password}
+							</Form.Control.Feedback>
 						</FloatingLabel>
 
 						<div className="mb-3">
 							<Link to="/reset">Forgot your password?</Link>
 						</div>
-
 						<div className="d-grid gap-2">
 							<Button variant="primary" type="submit" size="lg">
 								Sign In
