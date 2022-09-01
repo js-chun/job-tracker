@@ -4,7 +4,10 @@ import { useAuthState } from "react-firebase-hooks/auth"
 import { auth } from "./firebase"
 import { logOut } from "./authentication"
 import Container from "react-bootstrap/Container"
+import Row from "react-bootstrap/Row"
+import Col from "react-bootstrap/Col"
 import Nav from "react-bootstrap/Nav"
+import JobForm from "./JobForm"
 import Navbar from "react-bootstrap/Navbar"
 import NavDropdown from "react-bootstrap/NavDropdown"
 import Button from "react-bootstrap/Button"
@@ -25,12 +28,18 @@ function JobMain() {
 		<div>
 			<Navbar bg="dark" expand="lg">
 				<Container>
-					<Navbar.Brand href="#home">simple-job-tracker</Navbar.Brand>
+					<Navbar.Brand href="#home" className="text-primary">
+						simple-job-tracker
+					</Navbar.Brand>
 					<Button onClick={logOut}>
 						<ion-icon name="log-out-outline"></ion-icon> Sign Out
 					</Button>
 				</Container>
 			</Navbar>
+			<Container>
+				<JobForm />
+				<Row></Row>
+			</Container>
 		</div>
 	)
 }

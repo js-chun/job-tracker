@@ -47,7 +47,8 @@ function Login() {
 					<div className="d-flex align-content-center">
 						<Image
 							src={process.env.PUBLIC_URL + "/job-logo.png"}
-							className="mx-auto img-thumbnail"
+							className="mx-auto"
+							thumbnail={true}
 							width={300}
 						/>
 					</div>
