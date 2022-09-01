@@ -1,22 +1,10 @@
 import { auth } from "./firebase"
-import {
-	collection,
-	query,
-	where,
-	addDoc,
-	Timestamp,
-	getDocs,
-} from "firebase/firestore"
+import { collection, query, where, addDoc, getDocs } from "firebase/firestore"
 import { db } from "./firebase"
 
 export const createJob = async (data) => {
 	try {
-		await addDoc(collection(db, "jobs"), {
-			...data,
-			archived: false,
-			created: Timestamp.now(),
-			user: auth.currentUser.uid,
-		})
+		await addDoc(collection(db, "jobs"), { data })
 	} catch (err) {
 		alert(err)
 	}

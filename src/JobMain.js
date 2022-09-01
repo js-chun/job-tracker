@@ -2,16 +2,14 @@ import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useAuthState } from "react-firebase-hooks/auth"
 import { auth } from "./firebase"
-import { logOut } from "./authentication"
 import { getJobs } from "./crud"
-import Container from "react-bootstrap/Container"
-import Row from "react-bootstrap/Row"
-import Col from "react-bootstrap/Col"
-import Nav from "react-bootstrap/Nav"
 import JobForm from "./JobForm"
-import Navbar from "react-bootstrap/Navbar"
-import NavDropdown from "react-bootstrap/NavDropdown"
-import Button from "react-bootstrap/Button"
+import JobNav from "./JobNavbar"
+import JobBoard from "./JobBoard"
+import JobArchive from "./JobArchive"
+import Container from "react-bootstrap/Container"
+import Tab from "react-bootstrap/Tab"
+import Tabs from "react-bootstrap/Tabs"
 
 function JobMain() {
 	const [userJobs, setUserJobs] = useState([])
@@ -32,22 +30,23 @@ function JobMain() {
 		if (!user) navigate("/")
 	}, [user, loading])
 
+	const activeJobs = userJobs.filter((job) => job.archived === false)
+	const archivedJobs = userJobs.filter((job) => job.archived === true)
+
 	return (
 		<div>
-			<Navbar bg="dark" expand="lg">
-				<Container>
-					<Navbar.Brand href="#home" className="text-primary">
-						simple-job-tracker
-					</Navbar.Brand>
-					<Button onClick={logOut}>
-						<ion-icon name="log-out-outline"></ion-icon> Sign Out
-					</Button>
-				</Container>
-			</Navbar>
+			<JobNav />
 			<Container>
 				<JobForm />
-				<Row></Row>
 			</Container>
+			<Tabs defaultActiveKey="home" className="mb-3">
+				<Tab eventKey="home" title="Active Jobs">
+					<JobBoard jobs={activeJobs} />
+				</Tab>
+				<Tab eventKey="archived" title="Archived Jobs">
+					<JobArchive jobs={archivedJobs} />
+				</Tab>
+			</Tabs>
 		</div>
 	)
 }

@@ -2,11 +2,13 @@ import React, { useState } from "react"
 import { useFormik } from "formik"
 import { createJob } from "./crud"
 import * as Yup from "yup"
+import { Timestamp } from "firebase/firestore"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 import Button from "react-bootstrap/Button"
 import Form from "react-bootstrap/Form"
 import Modal from "react-bootstrap/Modal"
+import { auth } from "./firebase"
 
 function JobForm() {
 	const [show, setShow] = useState(false)
@@ -46,7 +48,12 @@ function JobForm() {
 			notes: Yup.string().optional().max(200, "Must be 200 characters or less"),
 		}),
 		onSubmit: (values) => {
-			createJob(values)
+			createJob({
+				...values,
+				archived: false,
+				created: Timestamp.now(),
+				user: auth.currentUser.uid,
+			})
 			handleClose()
 			formik.handleReset()
 		},
