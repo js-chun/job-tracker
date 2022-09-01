@@ -1,37 +1,23 @@
 import { auth } from "./firebase"
-import { collection, query, where, addDoc, getDocs } from "firebase/firestore"
+import { doc, collection, addDoc, deleteDoc } from "firebase/firestore"
 import { db } from "./firebase"
 
 export const createJob = async (data) => {
 	try {
-		await addDoc(collection(db, "jobs"), { data })
+		await addDoc(collection(db, "jobs"), data)
 	} catch (err) {
 		alert(err)
 	}
 }
 
-export const getJobs = async () => {
-	// get all jobs related to user
-	try {
-		const result = []
-		const q = query(
-			collection(db, "jobs"),
-			where("user", "==", auth.currentUser.uid)
-		)
-		const querySnapshot = await getDocs(q)
-		querySnapshot.forEach((doc) => {
-			result.push(doc.data())
-		})
-		return result
-	} catch (err) {
-		alert(err)
-	}
-}
-
-export const updateJob = async () => {
+export const updateJob = async (jobId, updateData) => {
 	// update an existing job under user
 }
 
-export const deleteJob = async () => {
-	// delete an existing job under user
+export const deleteJob = async (jobId) => {
+	try {
+		await deleteDoc(doc(db, "jobs", jobId))
+	} catch (err) {
+		alert(err)
+	}
 }

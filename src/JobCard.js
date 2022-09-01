@@ -3,12 +3,17 @@ import Card from "react-bootstrap/Card"
 import Button from "react-bootstrap/Button"
 import Badge from "react-bootstrap/Badge"
 import Stack from "react-bootstrap/Stack"
+import { deleteJob } from "./crud"
 
 function JobCard(props) {
 	const { job, mode } = props
 
 	const openLinkInTab = () => {
 		window.open(job.url, "_blank").focus()
+	}
+
+	const handleDelete = async () => {
+		await deleteJob(job.id)
 	}
 
 	return (
@@ -30,10 +35,11 @@ function JobCard(props) {
 				{mode === "view" && (
 					<Stack direction="horizontal" gap={3} className="justify-content-end">
 						<Button variant="primary" size="sm">
-							<ion-icon name="create-outline"></ion-icon> edit
+							<ion-icon name="create-outline"></ion-icon> edit details
 						</Button>
 						<Button variant="primary" size="sm">
-							<ion-icon name="information-circle-outline"></ion-icon> notes
+							<ion-icon name="information-circle-outline"></ion-icon> hover to
+							see notes
 						</Button>
 					</Stack>
 				)}
@@ -58,7 +64,7 @@ function JobCard(props) {
 						<Button variant="primary" size="sm">
 							<ion-icon name="archive-outline"></ion-icon> declined
 						</Button>
-						<Button variant="primary" size="sm">
+						<Button variant="primary" size="sm" onClick={handleDelete}>
 							<ion-icon name="information-circle-outline"></ion-icon> delete
 						</Button>
 					</Stack>

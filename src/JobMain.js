@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useAuthState } from "react-firebase-hooks/auth"
 import { auth } from "./firebase"
-import { getJobs } from "./crud"
 import JobForm from "./JobForm"
 import JobNav from "./JobNavbar"
 import JobBoard from "./JobBoard"
@@ -10,6 +9,8 @@ import JobArchive from "./JobArchive"
 import Container from "react-bootstrap/Container"
 import Tab from "react-bootstrap/Tab"
 import Tabs from "react-bootstrap/Tabs"
+import { collection, query, where, onSnapshot } from "firebase/firestore"
+import { db } from "./firebase"
 
 function JobMain() {
 	const [userJobs, setUserJobs] = useState([])
@@ -22,10 +23,18 @@ function JobMain() {
 			return
 		}
 		if (user) {
-			const getJobsData = async () => {
-				setUserJobs(await getJobs())
-			}
-			getJobsData()
+			const q = query(
+				collection(db, "jobs"),
+				where("user", "==", auth.currentUser.uid)
+			)
+			onSnapshot(q, (querySnapshot) => {
+				setUserJobs(
+					querySnapshot.docs.map((doc) => ({
+						...doc.data(),
+						id: doc.id,
+					}))
+				)
+			})
 		}
 		if (!user) navigate("/")
 	}, [user, loading])
