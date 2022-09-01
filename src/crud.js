@@ -1,5 +1,10 @@
-import { auth } from "./firebase"
-import { doc, collection, addDoc, deleteDoc } from "firebase/firestore"
+import {
+	doc,
+	collection,
+	addDoc,
+	updateDoc,
+	deleteDoc,
+} from "firebase/firestore"
 import { db } from "./firebase"
 
 export const createJob = async (data) => {
@@ -11,7 +16,16 @@ export const createJob = async (data) => {
 }
 
 export const updateJob = async (jobId, updateData) => {
-	// update an existing job under user
+	let data = {}
+	if ("user" in updateData) {
+		for (let updateKey in updateData) {
+			if (updateKey !== "user") {
+				data[updateKey] = updateData[updateKey]
+			}
+		}
+	}
+	const updateDocRef = doc(db, "jobs", jobId)
+	await updateDoc(updateDocRef, updateData)
 }
 
 export const deleteJob = async (jobId) => {
