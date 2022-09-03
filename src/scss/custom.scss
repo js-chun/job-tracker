@@ -11,11 +11,11 @@ $theme-colors: (
   'primary': $primary-color,
   'secondary': $secondary-color,
   'success':       #198754,
-"info":          #0dcaf0,
-"warning":       #ffc107,
-"danger":        #dc3545,
-"light":         #f8f9fa,
-"dark":          #212529,
+  "info":          #0dcaf0,
+  "warning":       #ffc107,
+  "danger":        #dc3545,
+  "light":         #f8f9fa,
+  "dark":          #212529,
 );
 
 @import '~bootstrap/scss/bootstrap';
@@ -46,4 +46,17 @@ a:link {
 
 ion-icon {
   font-size: 1.5rem;
+}
+
+.list {
+  height: 72vh;
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding: 1rem;
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display:none;
+  }
 }

@@ -1,6 +1,15 @@
 import React from "react"
 import JobCard from "./JobCard"
 import Stack from "react-bootstrap/Stack"
+import { useDrop } from "react-dnd"
+import { updateJob } from "./crud"
+
+const allowedTypes = {
+	interested: ["applied", "interview", "offer"],
+	applied: ["interested", "interview", "offer"],
+	interview: ["interested", "applied", "offer"],
+	offer: ["interested", "applied", "interview"],
+}
 
 const alignment = {
 	interested: "right",
@@ -10,11 +19,31 @@ const alignment = {
 }
 
 function JobList(props) {
-	const { jobs, mode } = props
+	const { jobs, mode, status } = props
+
+	const [{ isOver, canDrop }, drop] = useDrop({
+		accept: allowedTypes[status],
+		drop: (item) => {
+			updateJob(item.id, { status })
+		},
+		collect: (monitor) => ({
+			isOver: monitor.isOver(),
+			canDrop: monitor.canDrop(),
+		}),
+	})
+
+	const isActive = isOver && canDrop
+
+	let border = "none"
+	if (isActive) {
+		border = "4px dashed #9ce3d6"
+	} else if (canDrop) {
+		border = "3px dashed #777"
+	}
 
 	return (
-		<div>
-			<h4 className="text-center">{props.status.toUpperCase()}</h4>
+		<div ref={drop} style={{ border }} className="list">
+			<h4 className="text-center">{status.toUpperCase()}</h4>
 			<div>
 				<Stack gap={3}>
 					{jobs &&

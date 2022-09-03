@@ -5,10 +5,18 @@ import Card from "react-bootstrap/Card"
 import Button from "react-bootstrap/Button"
 import Badge from "react-bootstrap/Badge"
 import Stack from "react-bootstrap/Stack"
+import { useDrag } from "react-dnd"
 import { updateJob, deleteJob } from "./crud"
 
 function JobCard(props) {
 	const { job, mode, placement } = props
+	const [{ opacity }, drag, preview] = useDrag(() => ({
+		type: job.status,
+		item: { id: job.id },
+		collect: (monitor) => ({
+			opacity: monitor.isDragging() ? 0.3 : 1,
+		}),
+	}))
 
 	const openLinkInTab = () => {
 		window.open(job.url, "_blank").focus()
@@ -39,7 +47,7 @@ function JobCard(props) {
 	}
 
 	return (
-		<Card>
+		<Card ref={preview} style={{ opacity }}>
 			<Card.Body>
 				<Card.Title>
 					<h6>
@@ -74,9 +82,11 @@ function JobCard(props) {
 							<ion-icon name="arrow-forward-circle-outline"></ion-icon>
 							&nbsp;next stage
 						</Button>
-						<Button variant="warning" size="sm">
-							<ion-icon name="move-outline"></ion-icon> &nbsp;drag and drop
-						</Button>
+						<div ref={drag}>
+							<Button variant="warning" size="sm">
+								<ion-icon name="move-outline"></ion-icon> &nbsp;drag and drop
+							</Button>
+						</div>
 					</Stack>
 				)}
 
