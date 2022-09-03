@@ -9,6 +9,8 @@ import JobArchive from "./JobArchive"
 import Container from "react-bootstrap/Container"
 import Tab from "react-bootstrap/Tab"
 import Tabs from "react-bootstrap/Tabs"
+import { HTML5Backend } from "react-dnd-html5-backend"
+import { DndProvider } from "react-dnd"
 import { collection, query, where, onSnapshot } from "firebase/firestore"
 import { db } from "./firebase"
 
@@ -50,7 +52,9 @@ function JobMain() {
 			</Container>
 			<Tabs defaultActiveKey="home" className="mb-3">
 				<Tab eventKey="home" title="Active Jobs">
-					<JobBoard jobs={activeJobs} />
+					<DndProvider backend={HTML5Backend}>
+						<JobBoard jobs={activeJobs} />
+					</DndProvider>
 				</Tab>
 				<Tab eventKey="archived" title="Archived Jobs">
 					<JobArchive jobs={archivedJobs} />

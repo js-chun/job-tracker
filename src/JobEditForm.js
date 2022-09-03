@@ -57,8 +57,8 @@ function JobEditForm(props) {
 
 	return (
 		<>
-			<Button variant="primary" size="sm" onClick={handleShow}>
-				<ion-icon name="create-outline"></ion-icon> edit details
+			<Button variant="info" size="sm" onClick={handleShow}>
+				<ion-icon name="create-outline"></ion-icon> &nbsp;edit details
 			</Button>
 
 			<Modal show={show} onHide={handleClose}>

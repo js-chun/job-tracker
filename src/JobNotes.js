@@ -11,7 +11,7 @@ function JobNotes(props) {
 			{({ ref, ...triggerHandler }) => (
 				<Button
 					ref={ref}
-					variant="primary"
+					variant="info"
 					size="sm"
 					{...triggerHandler}
 					className="d-inline-flex align-items-center">

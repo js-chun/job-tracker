@@ -14,7 +14,7 @@ function JobList(props) {
 
 	return (
 		<div>
-			<h3 className="text-center">{props.status.toUpperCase()}</h3>
+			<h4 className="text-center">{props.status.toUpperCase()}</h4>
 			<div>
 				<Stack gap={3}>
 					{jobs &&

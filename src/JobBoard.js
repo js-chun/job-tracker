@@ -31,7 +31,7 @@ function JobBoard(props) {
 	return (
 		<Container fluid>
 			<Row>
-				<ButtonGroup className="mt-3 mb-4 mx-auto" aria-label="Basic example">
+				<ButtonGroup className="mt-0 mb-3 mx-auto" aria-label="Job board modes">
 					<Button
 						variant={mode === "view" ? "primary" : "light"}
 						onClick={handleViewMode}>

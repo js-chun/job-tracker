@@ -42,15 +42,18 @@ function JobCard(props) {
 		<Card>
 			<Card.Body>
 				<Card.Title>
-					{job.title}{" "}
-					{job.type !== "unknown" && (
-						<Badge bg="secondary">{job.type.toUpperCase()}</Badge>
-					)}
+					<h6>
+						{job.title}{" "}
+						{job.type !== "unknown" && (
+							<Badge bg="secondary">{job.type.toUpperCase()}</Badge>
+						)}
+					</h6>
 				</Card.Title>
 				<Card.Text>
 					<Button variant="primary" size="sm" onClick={openLinkInTab}>
 						<ion-icon name="link"></ion-icon>
-					</Button>{" "}
+					</Button>
+					&nbsp;
 					<small>{job.company}</small> - <small>{job.location}</small>
 				</Card.Text>
 
@@ -64,15 +67,15 @@ function JobCard(props) {
 				{mode === "move" && (
 					<Stack direction="horizontal" gap={3} className="justify-content-end">
 						<Button
-							variant="primary"
+							variant="warning"
 							size="sm"
 							onClick={handleNextStage}
 							disabled={job.status === "offer"}>
-							<ion-icon name="arrow-forward-circle-outline"></ion-icon> move to
-							next stage
+							<ion-icon name="arrow-forward-circle-outline"></ion-icon>
+							&nbsp;next stage
 						</Button>
-						<Button variant="primary" size="sm">
-							<ion-icon name="move-outline"></ion-icon> drag and drop
+						<Button variant="warning" size="sm">
+							<ion-icon name="move-outline"></ion-icon> &nbsp;drag and drop
 						</Button>
 					</Stack>
 				)}
@@ -80,13 +83,13 @@ function JobCard(props) {
 				{mode === "remove" && (
 					<Stack direction="horizontal" gap={3} className="justify-content-end">
 						<Button variant="danger" size="sm" onClick={handleArchive}>
-							<ion-icon name="archive"></ion-icon> archive/no longer interested
+							<ion-icon name="archive"></ion-icon> &nbsp;archive
 						</Button>
 						<Button variant="danger" size="sm" onClick={handleDeclined}>
-							<ion-icon name="close-circle"></ion-icon> declined
+							<ion-icon name="close-circle"></ion-icon> &nbsp;declined
 						</Button>
 						<Button variant="danger" size="sm" onClick={handleDelete}>
-							<ion-icon name="trash"></ion-icon> delete
+							<ion-icon name="trash"></ion-icon> &nbsp;delete
 						</Button>
 					</Stack>
 				)}

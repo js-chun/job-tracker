@@ -24,6 +24,12 @@ a:link {
   text-decoration: none;
 }
 
+.btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .btn-sns {
   display: flex;
   justify-content: center;
@@ -36,4 +42,8 @@ a:link {
   &:hover {
     background-color: lighten($primary-color, 5%);
   }
+}
+
+ion-icon {
+  font-size: 1.5rem;
 }

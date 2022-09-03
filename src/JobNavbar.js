@@ -12,7 +12,7 @@ function JobNav() {
 					simple-job-tracker
 				</Navbar.Brand>
 				<Button onClick={logOut}>
-					<ion-icon name="log-out-outline"></ion-icon> Sign Out
+					<ion-icon name="log-out-outline"></ion-icon>&nbsp;Sign Out
 				</Button>
 			</Container>
 		</Navbar>
