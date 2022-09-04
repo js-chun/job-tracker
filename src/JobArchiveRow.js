@@ -7,7 +7,7 @@ function JobArchiveRow(props) {
 	const { job } = props
 
 	const handleUnarchive = async () => {
-		await updateJob(job.id, { archived: true })
+		await updateJob(job.id, { archived: false })
 	}
 
 	return (
