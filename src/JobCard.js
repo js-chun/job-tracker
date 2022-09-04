@@ -1,6 +1,7 @@
 import React from "react"
 import JobEditForm from "./JobEditForm"
 import JobNotes from "./JobNotes"
+import JobLinkButton from "./JobLinkButton"
 import Card from "react-bootstrap/Card"
 import Button from "react-bootstrap/Button"
 import Badge from "react-bootstrap/Badge"
@@ -17,10 +18,6 @@ function JobCard(props) {
 			opacity: monitor.isDragging() ? 0.3 : 1,
 		}),
 	}))
-
-	const openLinkInTab = () => {
-		window.open(job.url, "_blank").focus()
-	}
 
 	const handleDelete = async () => {
 		await deleteJob(job.id)
@@ -58,9 +55,7 @@ function JobCard(props) {
 					</h6>
 				</Card.Title>
 				<Card.Text>
-					<Button variant="primary" size="sm" onClick={openLinkInTab}>
-						<ion-icon name="link"></ion-icon>
-					</Button>
+					<JobLinkButton src={job.url} />
 					&nbsp;
 					<small>{job.company}</small> - <small>{job.location}</small>
 				</Card.Text>
