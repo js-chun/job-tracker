@@ -1,5 +1,6 @@
 import React from "react"
 import JobCard from "./JobCard"
+import Badge from "react-bootstrap/Badge"
 import Stack from "react-bootstrap/Stack"
 import { useDrop } from "react-dnd"
 import { updateJob } from "../crud"
@@ -43,7 +44,9 @@ function JobList(props) {
 
 	return (
 		<div ref={drop} style={{ border }} className="list">
-			<h4 className="text-center">{status.toUpperCase()}</h4>
+			<h4 className="text-center">
+				{status.toUpperCase()} <Badge bg="secondary">{jobs.length}</Badge>
+			</h4>
 			<div>
 				<Stack gap={3}>
 					{jobs &&
