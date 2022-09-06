@@ -1,14 +1,15 @@
 import React from "react"
 import JobEditForm from "./JobEditForm"
 import JobNotes from "./JobNotes"
+import JobArchiveButton from "./JobArchiveButton"
+import JobDeleteButton from "./JobDeleteButton"
 import JobLinkButton from "./JobLinkButton"
 import Card from "react-bootstrap/Card"
 import Button from "react-bootstrap/Button"
 import Badge from "react-bootstrap/Badge"
 import Stack from "react-bootstrap/Stack"
 import { useDrag } from "react-dnd"
-import { updateJob, deleteJob } from "../crud"
-import { Timestamp } from "firebase/firestore"
+import { updateJob } from "../crud"
 
 function JobCard(props) {
 	const { job, mode, placement } = props
@@ -20,10 +21,6 @@ function JobCard(props) {
 		}),
 	}))
 
-	const handleDelete = async () => {
-		await deleteJob(job.id)
-	}
-
 	const handleNextStage = async () => {
 		let nextStage = "interested"
 		if (job.status === "interested") {
@@ -34,14 +31,6 @@ function JobCard(props) {
 			nextStage = "offer"
 		}
 		await updateJob(job.id, { status: nextStage })
-	}
-
-	const handleArchive = async () => {
-		await updateJob(job.id, { archived: true, archivedDate: Timestamp.now() })
-	}
-
-	const handleDeclined = async () => {
-		await updateJob(job.id, { archived: true, status: "declined" })
 	}
 
 	return (
@@ -95,16 +84,9 @@ function JobCard(props) {
 
 				{mode === "remove" && (
 					<Stack direction="horizontal" gap={3} className="justify-content-end">
-						<Button variant="danger" size="sm" onClick={handleArchive}>
-							<ion-icon name="archive"></ion-icon> <small>&nbsp;archive</small>
-						</Button>
-						<Button variant="danger" size="sm" onClick={handleDeclined}>
-							<ion-icon name="close-circle"></ion-icon>{" "}
-							<small>&nbsp;declined</small>
-						</Button>
-						<Button variant="danger" size="sm" onClick={handleDelete}>
-							<ion-icon name="trash"></ion-icon> <small>&nbsp;delete</small>
-						</Button>
+						<JobArchiveButton type="archive" id={job.id} />
+						<JobArchiveButton type="declined" id={job.id} />
+						<JobDeleteButton id={job.id} />
 					</Stack>
 				)}
 			</Card.Body>
