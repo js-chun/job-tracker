@@ -20,12 +20,6 @@ function JobNav(props) {
 		}
 	}
 
-	const handleDeclinedClick = () => {
-		if (viewMode !== "declined") {
-			setView("declined")
-		}
-	}
-
 	return (
 		<Navbar bg="dark" expand="lg">
 			<Container>
@@ -42,11 +36,6 @@ function JobNav(props) {
 						variant={viewMode === "archive" ? "primary" : "outline-primary"}
 						onClick={handleArchiveClick}>
 						Archived Jobs
-					</Button>
-					<Button
-						variant={viewMode === "declined" ? "primary" : "outline-primary"}
-						onClick={handleDeclinedClick}>
-						Declined Jobs
 					</Button>
 				</Stack>
 				<Button variant="danger" onClick={logOut}>

@@ -22,6 +22,8 @@ function JobForm() {
 			location: "",
 			status: "interested",
 			type: "unknown",
+			time: "unknown",
+			salary: "",
 			notes: "",
 		},
 		validationSchema: Yup.object({
@@ -32,7 +34,7 @@ function JobForm() {
 			company: Yup.string()
 				.required("Required")
 				.max(50, "Must be 50 characters or less"),
-			location: Yup.string().optional(),
+			location: Yup.string().required("Required"),
 			status: Yup.string()
 				.required("Required")
 				.oneOf(
@@ -45,7 +47,9 @@ function JobForm() {
 					["unknown", "remote", "hybrid", "onsite"],
 					"Must be a valid job type"
 				),
-			notes: Yup.string().optional().max(200, "Must be 200 characters or less"),
+			time: Yup.string().required().oneOf(["unknown", "ft", "pt", "contract"]),
+			salary: Yup.string().optional().max(20, "Must be 20 characters or less"),
+			notes: Yup.string().optional().max(500, "Must be 500 characters or less"),
 		}),
 		onSubmit: (values) => {
 			createJob({
@@ -123,7 +127,7 @@ function JobForm() {
 						</Row>
 						<Row>
 							<Form.Group className="mb-3">
-								<Form.Label>Location (Optional)</Form.Label>
+								<Form.Label>Location</Form.Label>
 								<Form.Control
 									type="text"
 									placeholder="Location"
@@ -134,6 +138,42 @@ function JobForm() {
 									{formik.errors.location}
 								</Form.Control.Feedback>
 							</Form.Group>
+						</Row>
+						<Row>
+							<Col>
+								<Form.Group className="mb-3">
+									<Form.Label>FT / PT / Contract</Form.Label>
+									<Form.Select
+										aria-label="FT / PT /Contract"
+										isInvalid={formik.errors.time}
+										{...formik.getFieldProps("time")}>
+										<option value="unknown">I don't know</option>
+										<option value="ft">Full-Time</option>
+										<option value="pt">Part-Time</option>
+										<option value="contract">Contract</option>
+									</Form.Select>
+									<Form.Control.Feedback type="invalid">
+										{formik.errors.time}
+									</Form.Control.Feedback>
+								</Form.Group>
+							</Col>
+							<Col>
+								<Form.Group className="mb-3">
+									<Form.Label>Remote / Hybrid / Onsite</Form.Label>
+									<Form.Select
+										aria-label="Remote / Hybrid / Onsite"
+										isInvalid={formik.errors.type}
+										{...formik.getFieldProps("type")}>
+										<option value="unknown">I don't know</option>
+										<option value="remote">Remote</option>
+										<option value="hybrid">Hybrid</option>
+										<option value="onsite">Onsite</option>
+									</Form.Select>
+									<Form.Control.Feedback type="invalid">
+										{formik.errors.type}
+									</Form.Control.Feedback>
+								</Form.Group>
+							</Col>
 						</Row>
 						<Row>
 							<Col>
@@ -156,18 +196,15 @@ function JobForm() {
 							</Col>
 							<Col>
 								<Form.Group className="mb-3">
-									<Form.Label>Remote / Hybrid / Onsite</Form.Label>
-									<Form.Select
-										aria-label="Application Status"
-										isInvalid={formik.errors.type}
-										{...formik.getFieldProps("type")}>
-										<option value="unknown">I don't know</option>
-										<option value="remote">Remote</option>
-										<option value="hybrid">Hybrid</option>
-										<option value="onsite">Onsite</option>
-									</Form.Select>
+									<Form.Label>Salary Expectations</Form.Label>
+									<Form.Control
+										type="text"
+										placeholder="Salary Expectations"
+										isInvalid={formik.errors.salary}
+										{...formik.getFieldProps("salary")}
+									/>
 									<Form.Control.Feedback type="invalid">
-										{formik.errors.type}
+										{formik.errors.salary}
 									</Form.Control.Feedback>
 								</Form.Group>
 							</Col>

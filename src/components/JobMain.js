@@ -42,7 +42,6 @@ function JobMain() {
 
 	const activeJobs = userJobs.filter((job) => job.archived === false)
 	const archivedJobs = userJobs.filter((job) => job.archived === true)
-	const declinedJobs = userJobs.filter((job) => job.status === "declined")
 
 	const setView = (mode) => {
 		setViewMode(mode)
@@ -60,7 +59,6 @@ function JobMain() {
 				</DndProvider>
 			)}
 			{viewMode === "archive" && <JobArchive jobs={archivedJobs} />}
-			{viewMode === "declined" && <JobArchive jobs={declinedJobs} />}
 		</div>
 	)
 }

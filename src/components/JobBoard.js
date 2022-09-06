@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import JobList from "./JobList"
+import JobDeclined from "./JobDeclined"
 import Container from "react-bootstrap/Container"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
@@ -28,14 +29,16 @@ function JobBoard(props) {
 		setMode("move")
 	}
 
+	const declinedJobs = jobs.filter((job) => job.status === "declined")
+
 	return (
 		<Container fluid>
-			<Row>
+			<Container>
 				<ButtonGroup className="mt-0 mb-3 mx-auto" aria-label="Job board modes">
 					<Button
 						variant={mode === "view" ? "primary" : "light"}
 						onClick={handleViewMode}>
-						View
+						View Details
 					</Button>
 					<Button
 						variant={mode === "move" ? "primary" : "light"}
@@ -48,7 +51,8 @@ function JobBoard(props) {
 						Remove or Archive Jobs
 					</Button>
 				</ButtonGroup>
-			</Row>
+				<JobDeclined jobs={declinedJobs} />
+			</Container>
 			<Row>
 				<Col>
 					<JobList
