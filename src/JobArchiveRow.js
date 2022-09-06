@@ -1,5 +1,6 @@
 import React from "react"
 import JobLinkButton from "./JobLinkButton"
+import JobNotes from "./JobNotes"
 import Button from "react-bootstrap/Button"
 import { updateJob } from "./crud"
 
@@ -17,7 +18,9 @@ function JobArchiveRow(props) {
 			<td>{job.location}</td>
 			<td>{job.status}</td>
 			<td>{job.type.toUpperCase()}</td>
-			<td>{job.notes}</td>
+			<td>
+				<JobNotes job={job} />
+			</td>
 			<td>
 				<JobLinkButton src={job.url} />
 				<Button

@@ -7,14 +7,13 @@ import JobNav from "./JobNavbar"
 import JobBoard from "./JobBoard"
 import JobArchive from "./JobArchive"
 import Container from "react-bootstrap/Container"
-import Tab from "react-bootstrap/Tab"
-import Tabs from "react-bootstrap/Tabs"
 import { HTML5Backend } from "react-dnd-html5-backend"
 import { DndProvider } from "react-dnd"
 import { collection, query, where, onSnapshot } from "firebase/firestore"
 import { db } from "./firebase"
 
 function JobMain() {
+	const [viewMode, setViewMode] = useState("active")
 	const [userJobs, setUserJobs] = useState([])
 	const [user, loading, error] = useAuthState(auth)
 	const navigate = useNavigate()
@@ -44,22 +43,22 @@ function JobMain() {
 	const activeJobs = userJobs.filter((job) => job.archived === false)
 	const archivedJobs = userJobs.filter((job) => job.archived === true)
 
+	const setView = (mode) => {
+		setViewMode(mode)
+	}
+
 	return (
 		<div>
-			<JobNav />
+			<JobNav setView={setView} viewMode={viewMode} />
 			<Container>
 				<JobForm />
 			</Container>
-			<Tabs defaultActiveKey="home" className="mb-3">
-				<Tab eventKey="home" title="Active Jobs">
-					<DndProvider backend={HTML5Backend}>
-						<JobBoard jobs={activeJobs} />
-					</DndProvider>
-				</Tab>
-				<Tab eventKey="archived" title="Archived Jobs">
-					<JobArchive jobs={archivedJobs} />
-				</Tab>
-			</Tabs>
+			{viewMode === "active" && (
+				<DndProvider backend={HTML5Backend}>
+					<JobBoard jobs={activeJobs} />
+				</DndProvider>
+			)}
+			{viewMode === "archive" && <JobArchive jobs={archivedJobs} />}
 		</div>
 	)
 }

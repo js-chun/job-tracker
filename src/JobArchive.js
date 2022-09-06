@@ -15,7 +15,7 @@ function JobArchive(props) {
 						<th>Location</th>
 						<th>Application Status</th>
 						<th>Remote/Hybrid/Onsite</th>
-						<th>Notes (Optional)</th>
+						<th>Notes</th>
 						<th>Actions</th>
 					</tr>
 				</thead>

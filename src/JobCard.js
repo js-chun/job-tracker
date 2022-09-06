@@ -43,21 +43,31 @@ function JobCard(props) {
 		await updateJob(job.id, { archived: true, status: "declined" })
 	}
 
+	const createdDate = job.created.toDate().toString()
+
 	return (
 		<Card ref={preview} style={{ opacity }}>
 			<Card.Body>
 				<Card.Title>
 					<h6>
+						<JobLinkButton src={job.url} /> &nbsp;
 						{job.title}{" "}
-						{job.type !== "unknown" && (
-							<Badge bg="secondary">{job.type.toUpperCase()}</Badge>
-						)}
 					</h6>
 				</Card.Title>
 				<Card.Text>
-					<JobLinkButton src={job.url} />
-					&nbsp;
-					<small>{job.company}</small> - <small>{job.location}</small>
+					<small>
+						{job.type !== "unknown" && (
+							<Badge bg="secondary">{job.type.toUpperCase()}</Badge>
+						)}
+					</small>
+					<ul>
+						<li>
+							<small>Company: {job.company}</small>
+						</li>
+						<li>
+							<small>Location: {job.location}</small>
+						</li>
+					</ul>
 				</Card.Text>
 
 				{mode === "view" && (
@@ -99,6 +109,11 @@ function JobCard(props) {
 					</Stack>
 				)}
 			</Card.Body>
+			<Card.Footer>
+				<small>
+					Added <strong>{createdDate}</strong>
+				</small>
+			</Card.Footer>
 		</Card>
 	)
 }
