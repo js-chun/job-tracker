@@ -10,12 +10,14 @@ function JobArchive(props) {
 			<Table striped bordered hover variant="dark">
 				<thead>
 					<tr>
+						<th>Added</th>
+						<th>Archived</th>
 						<th>Title</th>
 						<th>Company</th>
 						<th>Location</th>
 						<th>Application Status</th>
 						<th>Remote/Hybrid/Onsite</th>
-						<th>Notes</th>
+						<th>Other Info</th>
 						<th>Actions</th>
 					</tr>
 				</thead>

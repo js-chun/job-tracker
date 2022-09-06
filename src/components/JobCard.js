@@ -7,7 +7,8 @@ import Button from "react-bootstrap/Button"
 import Badge from "react-bootstrap/Badge"
 import Stack from "react-bootstrap/Stack"
 import { useDrag } from "react-dnd"
-import { updateJob, deleteJob } from "./crud"
+import { updateJob, deleteJob } from "../crud"
+import { Timestamp } from "firebase/firestore"
 
 function JobCard(props) {
 	const { job, mode, placement } = props
@@ -36,14 +37,12 @@ function JobCard(props) {
 	}
 
 	const handleArchive = async () => {
-		await updateJob(job.id, { archived: true })
+		await updateJob(job.id, { archived: true, archivedDate: Timestamp.now() })
 	}
 
 	const handleDeclined = async () => {
 		await updateJob(job.id, { archived: true, status: "declined" })
 	}
-
-	const createdDate = job.created.toDate().toString()
 
 	return (
 		<Card ref={preview} style={{ opacity }}>
@@ -54,21 +53,19 @@ function JobCard(props) {
 						{job.title}{" "}
 					</h6>
 				</Card.Title>
-				<Card.Text>
-					<small>
-						{job.type !== "unknown" && (
-							<Badge bg="secondary">{job.type.toUpperCase()}</Badge>
-						)}
-					</small>
-					<ul>
-						<li>
-							<small>Company: {job.company}</small>
-						</li>
-						<li>
-							<small>Location: {job.location}</small>
-						</li>
-					</ul>
-				</Card.Text>
+				<ul>
+					<li>
+						<small>Company: {job.company}</small>
+					</li>
+					<li>
+						<small>
+							Location: {job.location}{" "}
+							{job.type !== "unknown" && (
+								<Badge bg="secondary">{job.type.toUpperCase()}</Badge>
+							)}
+						</small>
+					</li>
+				</ul>
 
 				{mode === "view" && (
 					<Stack direction="horizontal" gap={3} className="justify-content-end">
@@ -85,11 +82,12 @@ function JobCard(props) {
 							onClick={handleNextStage}
 							disabled={job.status === "offer"}>
 							<ion-icon name="arrow-forward-circle-outline"></ion-icon>
-							&nbsp;next stage
+							<small>&nbsp;next stage</small>
 						</Button>
 						<div ref={drag}>
 							<Button variant="warning" size="sm">
-								<ion-icon name="move-outline"></ion-icon> &nbsp;drag and drop
+								<ion-icon name="move-outline"></ion-icon>
+								<small>&nbsp;drag and drop</small>
 							</Button>
 						</div>
 					</Stack>
@@ -98,20 +96,21 @@ function JobCard(props) {
 				{mode === "remove" && (
 					<Stack direction="horizontal" gap={3} className="justify-content-end">
 						<Button variant="danger" size="sm" onClick={handleArchive}>
-							<ion-icon name="archive"></ion-icon> &nbsp;archive
+							<ion-icon name="archive"></ion-icon> <small>&nbsp;archive</small>
 						</Button>
 						<Button variant="danger" size="sm" onClick={handleDeclined}>
-							<ion-icon name="close-circle"></ion-icon> &nbsp;declined
+							<ion-icon name="close-circle"></ion-icon>{" "}
+							<small>&nbsp;declined</small>
 						</Button>
 						<Button variant="danger" size="sm" onClick={handleDelete}>
-							<ion-icon name="trash"></ion-icon> &nbsp;delete
+							<ion-icon name="trash"></ion-icon> <small>&nbsp;delete</small>
 						</Button>
 					</Stack>
 				)}
 			</Card.Body>
 			<Card.Footer>
 				<small>
-					Added <strong>{createdDate}</strong>
+					Added <strong>{job.created.toDate().toString().substr(0, 24)}</strong>
 				</small>
 			</Card.Footer>
 		</Card>

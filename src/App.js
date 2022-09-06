@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router-dom"
-import Login from "./Login"
-import Register from "./Register"
-import Reset from "./Reset"
-import JobMain from "./JobMain"
+import Login from "./components/Login"
+import Register from "./components/Register"
+import Reset from "./components/Reset"
+import JobMain from "./components/JobMain"
 
 function App() {
 	return (

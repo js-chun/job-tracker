@@ -1,28 +1,28 @@
 import React, { useState } from "react"
 import { useFormik } from "formik"
-import { updateJob } from "./crud"
+import { createJob } from "../crud"
 import * as Yup from "yup"
+import { Timestamp } from "firebase/firestore"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 import Button from "react-bootstrap/Button"
 import Form from "react-bootstrap/Form"
 import Modal from "react-bootstrap/Modal"
+import { auth } from "../firebase"
 
-function JobEditForm(props) {
-	const { job } = props
+function JobForm() {
 	const [show, setShow] = useState(false)
 	const handleClose = () => setShow(false)
 	const handleShow = () => setShow(true)
 	const formik = useFormik({
 		initialValues: {
-			title: job.title,
-			url: job.url,
-			company: job.company,
-			location: job.location,
-			status: job.status,
-			type: job.type,
-			notes: job.notes,
-			archived: job.archived,
+			title: "",
+			url: "",
+			company: "",
+			location: "",
+			status: "interested",
+			type: "unknown",
+			notes: "",
 		},
 		validationSchema: Yup.object({
 			title: Yup.string()
@@ -46,10 +46,14 @@ function JobEditForm(props) {
 					"Must be a valid job type"
 				),
 			notes: Yup.string().optional().max(200, "Must be 200 characters or less"),
-			archived: Yup.boolean(),
 		}),
 		onSubmit: (values) => {
-			updateJob(job.id, values)
+			createJob({
+				...values,
+				archived: false,
+				created: Timestamp.now(),
+				user: auth.currentUser.uid,
+			})
 			handleClose()
 			formik.handleReset()
 		},
@@ -57,13 +61,17 @@ function JobEditForm(props) {
 
 	return (
 		<>
-			<Button variant="info" size="sm" onClick={handleShow}>
-				<ion-icon name="create-outline"></ion-icon> &nbsp;edit
-			</Button>
+			<Row>
+				<Col className="d-flex">
+					<Button onClick={handleShow} className="ms-auto my-3">
+						<ion-icon name="add-circle-outline"></ion-icon> Add a Job Posting
+					</Button>
+				</Col>
+			</Row>
 
 			<Modal show={show} onHide={handleClose}>
 				<Modal.Header closeButton>
-					<Modal.Title>Edit Job Posting</Modal.Title>
+					<Modal.Title>Add a Job Posting</Modal.Title>
 				</Modal.Header>
 				<Form
 					noValidate
@@ -178,22 +186,13 @@ function JobEditForm(props) {
 								</Form.Control.Feedback>
 							</Form.Group>
 						</Row>
-						<Row>
-							<Form.Group className="mb-3">
-								<Form.Label>Archived</Form.Label>
-								<Form.Check
-									type="switch"
-									{...formik.getFieldProps("archived")}
-								/>
-							</Form.Group>
-						</Row>
 					</Modal.Body>
 					<Modal.Footer>
 						<Button variant="secondary" onClick={handleClose}>
 							Close
 						</Button>
 						<Button type="submit" variant="primary">
-							Save Changes
+							Create Job Posting
 						</Button>
 					</Modal.Footer>
 				</Form>
@@ -202,4 +201,4 @@ function JobEditForm(props) {
 	)
 }
 
-export default JobEditForm
+export default JobForm

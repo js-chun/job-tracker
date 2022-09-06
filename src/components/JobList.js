@@ -2,7 +2,7 @@ import React from "react"
 import JobCard from "./JobCard"
 import Stack from "react-bootstrap/Stack"
 import { useDrop } from "react-dnd"
-import { updateJob } from "./crud"
+import { updateJob } from "../crud"
 
 const allowedTypes = {
 	interested: ["applied", "interview", "offer"],

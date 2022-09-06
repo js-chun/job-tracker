@@ -3,7 +3,7 @@ import Container from "react-bootstrap/Container"
 import Navbar from "react-bootstrap/Navbar"
 import Button from "react-bootstrap/Button"
 import Stack from "react-bootstrap/Stack"
-import { logOut } from "./authentication"
+import { logOut } from "../authentication"
 
 function JobNav(props) {
 	const { viewMode, setView } = props

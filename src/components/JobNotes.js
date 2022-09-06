@@ -5,12 +5,12 @@ import Tooltip from "react-bootstrap/Tooltip"
 //Might add TOAST instead
 
 function JobNotes(props) {
-	const { notes, placement } = props
+	const { notes, placement, noCaptions } = props
 
 	return (
 		<OverlayTrigger
 			placement={placement ? "top" : "top"}
-			overlay={<Tooltip id="button-tooltip-2">{notes || "N/A"}</Tooltip>}>
+			overlay={<Tooltip id="button-tooltip-2">{notes || "No notes"}</Tooltip>}>
 			{({ ref, ...triggerHandler }) => (
 				<Button
 					ref={ref}
@@ -18,8 +18,8 @@ function JobNotes(props) {
 					size="sm"
 					{...triggerHandler}
 					className="d-inline-flex align-items-center">
-					<ion-icon name="information-circle-outline"></ion-icon> &nbsp;hover
-					for notes
+					<ion-icon name="chatbox-ellipses"></ion-icon>
+					{noCaptions ? "" : <small>&nbsp;hover for notes</small>}
 				</Button>
 			)}
 		</OverlayTrigger>
