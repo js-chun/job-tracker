@@ -29,11 +29,11 @@ function JobEditForm(props) {
 		validationSchema: Yup.object({
 			title: Yup.string()
 				.required("Required")
-				.max(50, "Must be 50 characters or less"),
+				.max(70, "Must be 70 characters or less"),
 			url: Yup.string().url("Invalid URL").required("Required"),
 			company: Yup.string()
 				.required("Required")
-				.max(50, "Must be 50 characters or less"),
+				.max(70, "Must be 70 characters or less"),
 			location: Yup.string().required("Required"),
 			status: Yup.string()
 				.required("Required")
@@ -45,10 +45,15 @@ function JobEditForm(props) {
 				.required("Required")
 				.oneOf(
 					["unknown", "remote", "hybrid", "onsite"],
-					"Must be a valid job type"
+					"Must be a valid selection"
 				),
-			time: Yup.string().required().oneOf(["unknown", "ft", "pt", "contract"]),
-			salary: Yup.string().optional().max(20, "Must be 20 characters or less"),
+			time: Yup.string()
+				.required()
+				.oneOf(
+					["unknown", "ft", "pt", "contract"],
+					"Must be a valid selection"
+				),
+			salary: Yup.string().optional().max(30, "Must be 30 characters or less"),
 			notes: Yup.string().optional().max(500, "Must be 500 characters or less"),
 			archived: Yup.boolean(),
 		}),
@@ -61,7 +66,7 @@ function JobEditForm(props) {
 
 	return (
 		<>
-			<Button variant="info" size="sm" onClick={handleShow}>
+			<Button variant="warning" size="sm" onClick={handleShow}>
 				<ion-icon name="create-outline"></ion-icon>
 				{noCaptions ? "" : <small>&nbsp;edit</small>}
 			</Button>

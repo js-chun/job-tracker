@@ -8,7 +8,7 @@ import Button from "react-bootstrap/Button"
 import ButtonGroup from "react-bootstrap/ButtonGroup"
 
 function JobBoard(props) {
-	const [mode, setMode] = useState("view")
+	const [mode, setMode] = useState("edit")
 	const { jobs } = props
 	const categorizedJobs = {
 		interested: jobs.filter((job) => job.status === "interested"),
@@ -17,16 +17,12 @@ function JobBoard(props) {
 		offer: jobs.filter((job) => job.status === "offer"),
 	}
 
-	const handleViewMode = () => {
-		setMode("view")
-	}
-
 	const handleRemoveMode = () => {
 		setMode("remove")
 	}
 
-	const handleMoveMode = () => {
-		setMode("move")
+	const handleEditMode = () => {
+		setMode("edit")
 	}
 
 	const declinedJobs = jobs.filter((job) => job.status === "declined")
@@ -36,14 +32,9 @@ function JobBoard(props) {
 			<Container>
 				<ButtonGroup className="mt-0 mb-3 mx-auto" aria-label="Job board modes">
 					<Button
-						variant={mode === "view" ? "primary" : "light"}
-						onClick={handleViewMode}>
-						View Details
-					</Button>
-					<Button
-						variant={mode === "move" ? "primary" : "light"}
-						onClick={handleMoveMode}>
-						Quick Move Jobs
+						variant={mode === "edit" ? "primary" : "light"}
+						onClick={handleEditMode}>
+						Edit/Move Jobs
 					</Button>
 					<Button
 						variant={mode === "remove" ? "primary" : "light"}

@@ -1,6 +1,5 @@
 import React from "react"
 import JobEditForm from "./JobEditForm"
-import JobNotes from "./JobNotes"
 import JobArchiveButton from "./JobArchiveButton"
 import JobDeleteButton from "./JobDeleteButton"
 import JobLinkButton from "./JobLinkButton"
@@ -56,17 +55,14 @@ function JobCard(props) {
 					<li>
 						<small>Location: {job.location}</small>
 					</li>
+					<li>
+						<small>Notes: {job.notes || "None"}</small>
+					</li>
 				</ul>
 
-				{mode === "view" && (
+				{mode === "edit" && (
 					<Stack direction="horizontal" gap={3} className="justify-content-end">
 						<JobEditForm job={job} />
-						<JobNotes notes={job.notes} placement={placement} />
-					</Stack>
-				)}
-
-				{mode === "move" && (
-					<Stack direction="horizontal" gap={3} className="justify-content-end">
 						<Button
 							variant="warning"
 							size="sm"

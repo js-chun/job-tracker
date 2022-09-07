@@ -3,8 +3,6 @@ import JobArchiveButton from "./JobArchiveButton"
 import JobDeleteButton from "./JobDeleteButton"
 import JobLinkButton from "./JobLinkButton"
 import JobEditForm from "./JobEditForm"
-import JobNotes from "./JobNotes"
-import Button from "react-bootstrap/Button"
 import Stack from "react-bootstrap/Stack"
 
 function JobArchiveRow(props) {
@@ -22,10 +20,7 @@ function JobArchiveRow(props) {
 			<td>{job.status.toUpperCase()}</td>
 			<td>{job.type.toUpperCase()}</td>
 			<td>
-				<Stack direction="horizontal" gap={1}>
-					<JobLinkButton src={job.url} />
-					<JobNotes job={job} noCaptions />
-				</Stack>
+				<JobLinkButton src={job.url} />
 			</td>
 			<td>
 				<Stack direction="horizontal" gap={1}>
