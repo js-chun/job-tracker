@@ -24,9 +24,11 @@ function JobDeclined(props) {
 					<Offcanvas.Title>Declined Jobs (Unarchived)</Offcanvas.Title>
 				</Offcanvas.Header>
 				<Offcanvas.Body>
-					{jobs.map((job) => (
-						<JobDeclinedCard job={job} />
-					))}
+					{jobs.length > 0 ? (
+						jobs.map((job) => <JobDeclinedCard job={job} />)
+					) : (
+						<h5>NONE</h5>
+					)}
 				</Offcanvas.Body>
 			</Offcanvas>
 		</>

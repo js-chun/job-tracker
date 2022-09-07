@@ -39,20 +39,22 @@ function JobCard(props) {
 				<Card.Title>
 					<h6>
 						<JobLinkButton src={job.url} /> &nbsp;
-						{job.title}{" "}
+						{job.title}
 					</h6>
+					{job.time !== "unknown" && (
+						<Badge bg="secondary">{job.time.toUpperCase()} </Badge>
+					)}{" "}
+					{job.type !== "unknown" && (
+						<Badge bg="secondary">{job.type.toUpperCase()}</Badge>
+					)}{" "}
+					{job.salary && <Badge bg="secondary">{job.salary}</Badge>}
 				</Card.Title>
 				<ul>
 					<li>
-						<small>Company: {job.company}</small>
+						<small>Company: {job.company} </small>
 					</li>
 					<li>
-						<small>
-							Location: {job.location}{" "}
-							{job.type !== "unknown" && (
-								<Badge bg="secondary">{job.type.toUpperCase()}</Badge>
-							)}
-						</small>
+						<small>Location: {job.location}</small>
 					</li>
 				</ul>
 

@@ -43,11 +43,11 @@ function JobList(props) {
 	}
 
 	return (
-		<div ref={drop} style={{ border }} className="list">
+		<div ref={drop} style={{ border }}>
 			<h4 className="text-center">
 				{status.toUpperCase()} <Badge bg="secondary">{jobs.length}</Badge>
 			</h4>
-			<div>
+			<div className="list">
 				<Stack gap={3}>
 					{jobs &&
 						jobs.map((job) => (

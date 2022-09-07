@@ -17,7 +17,7 @@ const configs = {
 }
 
 function JobArchiveButton(props) {
-	const { id, type, undo, noCaptions } = props
+	const { id, type, noCaptions } = props
 
 	const handleClick = async () => {
 		if (type === "unarchive") {
@@ -26,8 +26,6 @@ function JobArchiveButton(props) {
 			await updateJob(id, { archived: true, archivedDate: Timestamp.now() })
 		} else if (type === "declined") {
 			await updateJob(id, {
-				archived: true,
-				archivedDate: Timestamp.now(),
 				status: "declined",
 			})
 		}
