@@ -12,10 +12,8 @@ function JobDeclined(props) {
 
 	return (
 		<>
-			<Button
-				className="mt-0 mb-3 ms-5"
-				variant="outline-danger"
-				onClick={handleShow}>
+			<ion-icon name="ban"></ion-icon>
+			<Button className="mx-3" variant="outline-danger" onClick={handleShow}>
 				Show Declined Jobs (Unarchived)
 			</Button>
 
@@ -24,7 +22,7 @@ function JobDeclined(props) {
 					<Offcanvas.Title>Declined Jobs (Unarchived)</Offcanvas.Title>
 				</Offcanvas.Header>
 				<Offcanvas.Body>
-					{jobs.length > 0 ? (
+					{jobs ? (
 						jobs.map((job) => <JobDeclinedCard job={job} />)
 					) : (
 						<h5>NONE</h5>

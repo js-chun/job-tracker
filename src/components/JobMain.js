@@ -40,8 +40,18 @@ function JobMain() {
 		if (!user) navigate("/")
 	}, [user, loading])
 
-	const activeJobs = userJobs.filter((job) => job.archived === false)
 	const archivedJobs = userJobs.filter((job) => job.archived === true)
+
+	const filterJobsByStatus = (results, status) => {
+		return results.filter((job) => job.status === status)
+	}
+
+	const activeJobs = userJobs.filter((job) => job.archived === false)
+	const interestedJobs = filterJobsByStatus(activeJobs, "interested")
+	const appliedJobs = filterJobsByStatus(activeJobs, "applied")
+	const interviewJobs = filterJobsByStatus(activeJobs, "interview")
+	const offerJobs = filterJobsByStatus(activeJobs, "offer")
+	const declinedJobs = filterJobsByStatus(activeJobs, "declined")
 
 	const setView = (mode) => {
 		setViewMode(mode)
@@ -55,7 +65,13 @@ function JobMain() {
 			</Container>
 			{viewMode === "active" && (
 				<DndProvider backend={HTML5Backend}>
-					<JobBoard jobs={activeJobs} />
+					<JobBoard
+						interested={interestedJobs}
+						applied={appliedJobs}
+						interview={interviewJobs}
+						offer={offerJobs}
+						declined={declinedJobs}
+					/>
 				</DndProvider>
 			)}
 			{viewMode === "archive" && <JobArchive jobs={archivedJobs} />}

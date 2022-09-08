@@ -11,7 +11,7 @@ import { useDrag } from "react-dnd"
 import { updateJob } from "../crud"
 
 function JobCard(props) {
-	const { job, mode, placement } = props
+	const { job, btnMode, viewMode } = props
 	const [{ opacity }, drag, preview] = useDrag(() => ({
 		type: job.status,
 		item: { id: job.id },
@@ -38,53 +38,83 @@ function JobCard(props) {
 				<Card.Title>
 					<h6>
 						<JobLinkButton src={job.url} /> &nbsp;
-						{job.title}
+						{job.title.length <= 50
+							? job.title
+							: job.title.substr(0, 46) + "..."}
 					</h6>
-					{job.time !== "unknown" && (
-						<Badge bg="secondary">{job.time.toUpperCase()} </Badge>
-					)}{" "}
-					{job.type !== "unknown" && (
-						<Badge bg="secondary">{job.type.toUpperCase()}</Badge>
-					)}{" "}
-					{job.salary && <Badge bg="secondary">{job.salary}</Badge>}
 				</Card.Title>
-				<ul>
-					<li>
-						<small>Company: {job.company} </small>
-					</li>
-					<li>
-						<small>Location: {job.location}</small>
-					</li>
-					<li>
-						<small>Notes: {job.notes || "None"}</small>
-					</li>
-				</ul>
+				{viewMode === "all" && (
+					<>
+						{job.time !== "unknown" && (
+							<Badge bg="secondary">{job.time.toUpperCase()} </Badge>
+						)}{" "}
+						{job.type !== "unknown" && (
+							<Badge bg="secondary">{job.type.toUpperCase()}</Badge>
+						)}{" "}
+						{job.salary && <Badge bg="secondary">{job.salary}</Badge>}
+						<ul>
+							<li>
+								<small>Company: {job.company} </small>
+							</li>
+							<li>
+								<small>Location: {job.location}</small>
+							</li>
+							<li>
+								<small>Notes: {job.notes || "None"}</small>
+							</li>
+						</ul>
+					</>
+				)}
 
-				{mode === "edit" && (
+				{viewMode === "compact" && (
+					<div className="mb-1">
+						<small>
+							{job.company} / {job.location}
+							{job.type !== "unknown" && ` (${job.type.toUpperCase()})`} /{" "}
+							{job.time.toUpperCase()}
+						</small>
+					</div>
+				)}
+
+				{btnMode === "edit" && (
 					<Stack direction="horizontal" gap={3} className="justify-content-end">
-						<JobEditForm job={job} />
+						<JobEditForm
+							job={job}
+							noCaptions={viewMode === "compact" ? true : false}
+						/>
 						<Button
 							variant="warning"
 							size="sm"
 							onClick={handleNextStage}
 							disabled={job.status === "offer"}>
 							<ion-icon name="arrow-forward-circle-outline"></ion-icon>
-							<small>&nbsp;next stage</small>
+							{viewMode === "all" && <small>&nbsp;next stage</small>}
 						</Button>
 						<div ref={drag}>
 							<Button variant="warning" size="sm">
 								<ion-icon name="move-outline"></ion-icon>
-								<small>&nbsp;drag and drop</small>
+								{viewMode === "all" && <small>&nbsp;drag and drop</small>}
 							</Button>
 						</div>
 					</Stack>
 				)}
 
-				{mode === "remove" && (
+				{btnMode === "remove" && (
 					<Stack direction="horizontal" gap={3} className="justify-content-end">
-						<JobArchiveButton type="archive" id={job.id} />
-						<JobArchiveButton type="declined" id={job.id} />
-						<JobDeleteButton id={job.id} />
+						<JobArchiveButton
+							type="archive"
+							id={job.id}
+							noCaptions={viewMode === "compact" ? true : false}
+						/>
+						<JobArchiveButton
+							type="declined"
+							id={job.id}
+							noCaptions={viewMode === "compact" ? true : false}
+						/>
+						<JobDeleteButton
+							id={job.id}
+							noCaptions={viewMode === "compact" ? true : false}
+						/>
 					</Stack>
 				)}
 			</Card.Body>

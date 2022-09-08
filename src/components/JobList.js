@@ -20,7 +20,7 @@ const alignment = {
 }
 
 function JobList(props) {
-	const { jobs, mode, status } = props
+	const { jobs, btnMode, viewMode, status } = props
 
 	const [{ isOver, canDrop }, drop] = useDrop({
 		accept: allowedTypes[status],
@@ -54,7 +54,8 @@ function JobList(props) {
 							<JobCard
 								key={job.id}
 								job={job}
-								mode={mode}
+								btnMode={btnMode}
+								viewMode={viewMode}
 								placement={alignment[props.status]}
 							/>
 						))}
