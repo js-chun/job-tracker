@@ -23,7 +23,7 @@ function JobArchive(props) {
 				</thead>
 				<tbody>
 					{jobs.map((job) => (
-						<JobArchiveRow job={job} />
+						<JobArchiveRow key={job.id} job={job} />
 					))}
 				</tbody>
 			</Table>
