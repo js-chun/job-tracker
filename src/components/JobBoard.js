@@ -3,6 +3,7 @@ import JobList from "./JobList"
 import JobDeclined from "./JobDeclined"
 import JobSearchBar from "./JobSearchBar"
 import Container from "react-bootstrap/Container"
+import Stack from "react-bootstrap/Stack"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 import Button from "react-bootstrap/Button"
@@ -56,35 +57,62 @@ function JobBoard(props) {
 
 	return (
 		<Container fluid>
-			<Container className="d-flex justify-content-around align-items-center mb-3">
-				<ion-icon name="eye"></ion-icon>
-				<ButtonGroup className="mx-3" aria-label="Job board view options">
-					<Button
-						variant={viewMode === "all" ? "primary" : "light"}
-						onClick={handleAllViewMode}>
-						All Details
-					</Button>
-					<Button
-						variant={viewMode === "compact" ? "primary" : "light"}
-						onClick={handleCompactViewMode}>
-						Compact
-					</Button>
-				</ButtonGroup>
-				<ion-icon name="hammer"></ion-icon>
-				<ButtonGroup className="mx-3" aria-label="Job board buttons">
-					<Button
-						variant={btnMode === "edit" ? "primary" : "light"}
-						onClick={handleEditBtnMode}>
-						Edit/Move Jobs
-					</Button>
-					<Button
-						variant={btnMode === "remove" ? "primary" : "light"}
-						onClick={handleRemoveBtnMode}>
-						Remove or Archive Jobs
-					</Button>
-				</ButtonGroup>
-				<JobDeclined jobs={declined} />
-				<JobSearchBar filterChange={handleFilterChange} />
+			<Container className="mb-3">
+				<Row fluid="md" className="justify-content-md-center gy-3">
+					<Col
+						className="d-flex align-items-center justify-content-sm-center justify-content-end"
+						xs={12}
+						sm={6}
+						md={4}
+						lg={3}
+						xxl={2}>
+						<ion-icon name="eye"></ion-icon>
+						<ButtonGroup className="mx-2" aria-label="Job board view options">
+							<Button
+								variant={viewMode === "all" ? "primary" : "light"}
+								onClick={handleAllViewMode}>
+								Details
+							</Button>
+							<Button
+								variant={viewMode === "compact" ? "primary" : "light"}
+								onClick={handleCompactViewMode}>
+								Compact
+							</Button>
+						</ButtonGroup>
+					</Col>
+					<Col
+						className="d-flex align-items-center justify-content-sm-center justify-content-end"
+						xs={12}
+						sm={6}
+						md={4}
+						lg={3}>
+						<ion-icon name="hammer"></ion-icon>
+						<ButtonGroup className="mx-2" aria-label="Job board buttons">
+							<Button
+								variant={btnMode === "edit" ? "primary" : "light"}
+								onClick={handleEditBtnMode}>
+								Edit/Move
+							</Button>
+							<Button
+								variant={btnMode === "remove" ? "primary" : "light"}
+								onClick={handleRemoveBtnMode}>
+								Remove/Archive
+							</Button>
+						</ButtonGroup>
+					</Col>
+					<Col
+						className="d-flex align-items-center justify-content-sm-center justify-content-end"
+						xs={12}
+						sm={5}
+						md={4}
+						lg={3}
+						xxl={2}>
+						<JobDeclined jobs={declined} />
+					</Col>
+					<Col xs={12} sm={7} md={11} lg={8} xxl={5}>
+						<JobSearchBar filterChange={handleFilterChange} />
+					</Col>
+				</Row>
 			</Container>
 			<Row>
 				<Col>

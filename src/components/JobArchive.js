@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import JobSearchBar from "./JobSearchBar"
 import JobArchiveRow from "./JobArchiveRow"
 import Container from "react-bootstrap/Container"
+import Row from "react-bootstrap/Row"
 import Table from "react-bootstrap/Table"
 
 function JobArchive(props) {
@@ -25,8 +26,10 @@ function JobArchive(props) {
 	}
 	return (
 		<Container fluid>
-			<Container className="d-flex justify-content-center align-items-center mb-3">
-				<JobSearchBar filterChange={handleFilterChange} />
+			<Container fluid="md">
+				<Row className="d-flex justify-content-center align-items-center mb-3">
+					<JobSearchBar filterChange={handleFilterChange} />
+				</Row>
 			</Container>
 
 			<Table striped bordered hover variant="dark">

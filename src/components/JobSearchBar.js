@@ -22,26 +22,24 @@ function JobSearchBar(props) {
 	}
 
 	return (
-		<>
-			<ion-icon name="filter"></ion-icon>
-
-			<Form className="d-flex mx-3 w-25" onSubmit={handleSubmit}>
-				<Stack direction="horizontal" gap={1}>
-					<Form.Control
-						type="text"
-						placeholder="Search keywords..."
-						value={searchInput}
-						onChange={handleSearchChange}
-					/>
-					<Button type="submit" variant="secondary">
-						<ion-icon name="search" size="small"></ion-icon>
-					</Button>
-					<Button variant="secondary" onClick={handleReset}>
-						<ion-icon name="backspace" size="small"></ion-icon>
-					</Button>
-				</Stack>
-			</Form>
-		</>
+		<Form onSubmit={handleSubmit}>
+			<Stack direction="horizontal" gap={2}>
+				<ion-icon name="filter"></ion-icon>
+				<Form.Control
+					className="me-auto"
+					type="text"
+					placeholder="Search keywords..."
+					value={searchInput}
+					onChange={handleSearchChange}
+				/>
+				<Button type="submit" variant="secondary">
+					<ion-icon name="search" size="small"></ion-icon>
+				</Button>
+				<Button variant="secondary" onClick={handleReset}>
+					<ion-icon name="backspace" size="small"></ion-icon>
+				</Button>
+			</Stack>
+		</Form>
 	)
 }
 

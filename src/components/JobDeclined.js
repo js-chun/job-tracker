@@ -21,8 +21,8 @@ function JobDeclined(props) {
 	return (
 		<>
 			<ion-icon name="ban"></ion-icon>
-			<Button className="mx-3" variant="outline-danger" onClick={handleShow}>
-				Show Declined Jobs (Unarchived)
+			<Button className="mx-2" variant="outline-danger" onClick={handleShow}>
+				Show Declined
 			</Button>
 
 			<Offcanvas show={show} onHide={handleClose} placement="end">
