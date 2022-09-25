@@ -1,45 +1,45 @@
-import React from "react"
-import JobCard from "./JobCard"
-import Badge from "react-bootstrap/Badge"
-import Stack from "react-bootstrap/Stack"
-import { useDrop } from "react-dnd"
-import { updateJob } from "../crud"
+import React from "react";
+import JobCard from "./JobCard";
+import Badge from "react-bootstrap/Badge";
+import Stack from "react-bootstrap/Stack";
+import { useDrop } from "react-dnd";
+import { updateJob } from "../crud";
 
 const allowedTypes = {
 	interested: ["applied", "interview", "offer"],
 	applied: ["interested", "interview", "offer"],
 	interview: ["interested", "applied", "offer"],
 	offer: ["interested", "applied", "interview"],
-}
+};
 
 const alignment = {
 	interested: "right",
 	applied: "right",
 	interview: "left",
 	offer: "left",
-}
+};
 
 function JobList(props) {
-	const { jobs, btnMode, viewMode, status } = props
+	const { jobs, btnMode, viewMode, status } = props;
 
 	const [{ isOver, canDrop }, drop] = useDrop({
 		accept: allowedTypes[status],
 		drop: (item) => {
-			updateJob(item.id, { status })
+			updateJob(item.id, { status });
 		},
 		collect: (monitor) => ({
 			isOver: monitor.isOver(),
 			canDrop: monitor.canDrop(),
 		}),
-	})
+	});
 
-	const isActive = isOver && canDrop
+	const isActive = isOver && canDrop;
 
-	let border = "none"
+	let border = "none";
 	if (isActive) {
-		border = "4px dashed #9ce3d6"
+		border = "4px dashed #9ce3d6";
 	} else if (canDrop) {
-		border = "3px dashed #777"
+		border = "3px dashed #777";
 	}
 
 	return (
@@ -62,7 +62,7 @@ function JobList(props) {
 				</Stack>
 			</div>
 		</div>
-	)
+	);
 }
 
-export default JobList
+export default JobList;

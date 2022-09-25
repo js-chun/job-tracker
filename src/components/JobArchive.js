@@ -1,37 +1,29 @@
-import React, { useState } from "react"
-import JobSearchBar from "./JobSearchBar"
-import JobArchiveRow from "./JobArchiveRow"
-import Container from "react-bootstrap/Container"
-import Row from "react-bootstrap/Row"
-import Table from "react-bootstrap/Table"
+import React from "react";
+import JobSearchBar from "./JobSearchBar";
+import JobArchiveRow from "./JobArchiveRow";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Table from "react-bootstrap/Table";
 
 function JobArchive(props) {
-	const { jobs } = props
-	const [isFiltering, setIsFiltering] = useState(false)
-	const [filteredJobs, setFilteredJobs] = useState([])
+	const { jobs, handleFilterChange, searchTerm } = props;
 
-	const handleFilterChange = (searchTerm) => {
-		if (searchTerm.trim() == "") {
-			setIsFiltering(false)
-		} else {
-			setFilteredJobs(
-				jobs.filter(
-					(job) =>
-						job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-						job.company.toLowerCase().includes(searchTerm.toLowerCase())
-				)
-			)
-			setIsFiltering(true)
-		}
-	}
 	return (
 		<Container fluid>
 			<Container fluid="md">
 				<Row className="d-flex justify-content-center align-items-center mb-3">
 					<JobSearchBar filterChange={handleFilterChange} />
 				</Row>
+				<Row className="my-3">
+					<small>
+						<b>
+							{searchTerm
+								? `All archived jobs containing '${searchTerm}'`
+								: "All archived jobs"}
+						</b>
+					</small>
+				</Row>
 			</Container>
-
 			<Table striped bordered hover variant="dark">
 				<thead>
 					<tr>
@@ -47,15 +39,13 @@ function JobArchive(props) {
 					</tr>
 				</thead>
 				<tbody>
-					{isFiltering
-						? filteredJobs.map((fJob) => (
-								<JobArchiveRow key={fJob.id} job={fJob} />
-						  ))
-						: jobs.map((job) => <JobArchiveRow key={job.id} job={job} />)}
+					{jobs.map((job) => (
+						<JobArchiveRow key={job.id} job={job} />
+					))}
 				</tbody>
 			</Table>
 		</Container>
-	)
+	);
 }
 
-export default JobArchive
+export default JobArchive;

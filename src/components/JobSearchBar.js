@@ -1,25 +1,25 @@
-import React, { useState } from "react"
-import Form from "react-bootstrap/Form"
-import Button from "react-bootstrap/Button"
-import Stack from "react-bootstrap/Stack"
+import React, { useState } from "react";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import Stack from "react-bootstrap/Stack";
 
 function JobSearchBar(props) {
-	const { filterChange } = props
-	const [searchInput, setSearchInput] = useState("")
+	const { filterChange } = props;
+	const [searchInput, setSearchInput] = useState("");
 
 	const handleSearchChange = (evt) => {
-		setSearchInput(evt.target.value)
-	}
+		setSearchInput(evt.target.value);
+	};
 
 	const handleSubmit = (evt) => {
-		evt.preventDefault()
-		filterChange(searchInput)
-	}
+		evt.preventDefault();
+		filterChange(searchInput);
+	};
 
 	const handleReset = () => {
-		filterChange("")
-		setSearchInput("")
-	}
+		filterChange("");
+		setSearchInput("");
+	};
 
 	return (
 		<Form onSubmit={handleSubmit}>
@@ -28,7 +28,7 @@ function JobSearchBar(props) {
 				<Form.Control
 					className="me-auto"
 					type="text"
-					placeholder="Search keywords..."
+					placeholder="Search keywords for job title or company..."
 					value={searchInput}
 					onChange={handleSearchChange}
 				/>
@@ -40,7 +40,7 @@ function JobSearchBar(props) {
 				</Button>
 			</Stack>
 		</Form>
-	)
+	);
 }
 
-export default JobSearchBar
+export default JobSearchBar;
