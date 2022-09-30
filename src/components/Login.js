@@ -1,17 +1,20 @@
-import React, { useEffect } from "react"
-import { Link, useNavigate } from "react-router-dom"
-import { useFormik } from "formik"
-import * as Yup from "yup"
-import { auth } from "../firebase"
-import { useAuthState } from "react-firebase-hooks/auth"
-import { logInWithEmailAndPassword, logInWithGoogle } from "../authentication"
-import Image from "react-bootstrap/Image"
-import Button from "react-bootstrap/Button"
-import Form from "react-bootstrap/Form"
-import FloatingLabel from "react-bootstrap/FloatingLabel"
-import Container from "react-bootstrap/Container"
-import Row from "react-bootstrap/Row"
-import Col from "react-bootstrap/Col"
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { auth } from "../utils/firebase";
+import {
+	logInWithEmailAndPassword,
+	logInWithGoogle,
+} from "../utils/authentication";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import FloatingLabel from "react-bootstrap/FloatingLabel";
+import Form from "react-bootstrap/Form";
+import Image from "react-bootstrap/Image";
+import Row from "react-bootstrap/Row";
 
 function Login() {
 	const formik = useFormik({
@@ -24,19 +27,19 @@ function Login() {
 			password: Yup.string().required("Password is required"),
 		}),
 		onSubmit: (values) => {
-			logInWithEmailAndPassword(values.email, values.password)
+			logInWithEmailAndPassword(values.email, values.password);
 		},
-	})
-	const [user, loading, error] = useAuthState(auth)
-	const navigate = useNavigate()
+	});
+	const [user, loading, error] = useAuthState(auth);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		if (loading) {
 			//loading screen
-			return
+			return;
 		}
-		if (user) navigate("/main")
-	}, [user, loading])
+		if (user) navigate("/main");
+	}, [user, loading]);
 
 	return (
 		<Container>
@@ -113,7 +116,7 @@ function Login() {
 				</Col>
 			</Row>
 		</Container>
-	)
+	);
 }
 
-export default Login
+export default Login;

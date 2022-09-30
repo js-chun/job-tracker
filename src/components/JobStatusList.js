@@ -1,9 +1,9 @@
 import React from "react";
+import { useDrop } from "react-dnd";
+import { updateJob } from "../utils/crud";
 import JobCard from "./JobCard";
 import Badge from "react-bootstrap/Badge";
 import Stack from "react-bootstrap/Stack";
-import { useDrop } from "react-dnd";
-import { updateJob } from "../crud";
 
 const allowedTypes = {
 	interested: ["applied", "interview", "offer"],
@@ -19,7 +19,7 @@ const alignment = {
 	offer: "left",
 };
 
-function JobList(props) {
+function JobStatusList(props) {
 	const { jobs, btnMode, viewMode, status } = props;
 
 	const [{ isOver, canDrop }, drop] = useDrop({
@@ -65,4 +65,4 @@ function JobList(props) {
 	);
 }
 
-export default JobList;
+export default JobStatusList;

@@ -1,8 +1,8 @@
-import { Route, Routes } from "react-router-dom"
-import Login from "./components/Login"
-import Register from "./components/Register"
-import Reset from "./components/Reset"
-import JobMain from "./components/JobMain"
+import { Route, Routes } from "react-router-dom";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import Reset from "./components/Reset";
+import JobMain from "./components/JobMain";
 
 function App() {
 	return (
@@ -14,7 +14,7 @@ function App() {
 				<Route exact path="/main" element={<JobMain />} />
 			</Routes>
 		</div>
-	)
+	);
 }
 
-export default App
+export default App;

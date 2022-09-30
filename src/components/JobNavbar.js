@@ -1,24 +1,24 @@
-import React from "react"
-import Container from "react-bootstrap/Container"
-import Navbar from "react-bootstrap/Navbar"
-import Button from "react-bootstrap/Button"
-import Stack from "react-bootstrap/Stack"
-import { logOut } from "../authentication"
+import React from "react";
+import { logOut } from "../utils/authentication";
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+import Navbar from "react-bootstrap/Navbar";
+import Stack from "react-bootstrap/Stack";
 
 function JobNav(props) {
-	const { viewMode, setView } = props
+	const { viewMode, setView } = props;
 
 	const handleActiveClick = () => {
 		if (viewMode !== "active") {
-			setView("active")
+			setView("active");
 		}
-	}
+	};
 
 	const handleArchiveClick = () => {
 		if (viewMode !== "archive") {
-			setView("archive")
+			setView("archive");
 		}
-	}
+	};
 
 	return (
 		<Navbar bg="dark" expand="lg">
@@ -43,7 +43,7 @@ function JobNav(props) {
 				</Button>
 			</Container>
 		</Navbar>
-	)
+	);
 }
 
-export default JobNav
+export default JobNav;

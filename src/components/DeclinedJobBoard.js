@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import Button from "react-bootstrap/Button";
-import Offcanvas from "react-bootstrap/Offcanvas";
+import { updateJob } from "../utils/crud";
+import { Timestamp } from "firebase/firestore";
 import JobDeclinedCard from "./JobDeclinedCard";
 import Badge from "react-bootstrap/Badge";
-import { updateJob } from "../crud";
-import { Timestamp } from "firebase/firestore";
+import Button from "react-bootstrap/Button";
+import Offcanvas from "react-bootstrap/Offcanvas";
 
-function JobDeclined(props) {
+function DeclinedJobBoard(props) {
 	const { jobs } = props;
 	const [show, setShow] = useState(false);
 
@@ -32,7 +32,7 @@ function JobDeclined(props) {
 				</Badge>
 			</Button>
 
-			<Offcanvas show={show} onHide={handleClose} placement="end">x
+			<Offcanvas show={show} onHide={handleClose} placement="end">
 				<Offcanvas.Header closeButton>
 					<Offcanvas.Title>Declined Jobs (Unarchived)</Offcanvas.Title>
 					{jobs && (
@@ -54,4 +54,4 @@ function JobDeclined(props) {
 	);
 }
 
-export default JobDeclined;
+export default DeclinedJobBoard;

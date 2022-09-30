@@ -1,13 +1,13 @@
-import React from "react"
-import Card from "react-bootstrap/Card"
-import Stack from "react-bootstrap/Stack"
-import JobEditForm from "./JobEditForm"
-import JobDeleteButton from "./JobDeleteButton"
-import JobArchiveButton from "./JobArchiveButton"
-import JobLinkButton from "./JobLinkButton"
+import React from "react";
+import JobEditForm from "./JobEditForm";
+import JobArchiveButton from "./JobButtons/JobArchiveButton";
+import JobDeleteButton from "./JobButtons/JobDeleteButton";
+import JobLinkButton from "./JobButtons/JobLinkButton";
+import Card from "react-bootstrap/Card";
+import Stack from "react-bootstrap/Stack";
 
 function JobDeclinedCard(props) {
-	const { job } = props
+	const { job } = props;
 	return (
 		<Card>
 			<Card.Body>
@@ -25,7 +25,7 @@ function JobDeclinedCard(props) {
 				</Stack>
 			</Card.Body>
 		</Card>
-	)
+	);
 }
 
-export default JobDeclinedCard
+export default JobDeclinedCard;

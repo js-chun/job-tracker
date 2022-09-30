@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../firebase";
-import JobForm from "./JobForm";
-import JobNav from "./JobNavbar";
-import JobBoard from "./JobBoard";
-import JobArchive from "./JobArchive";
-import Container from "react-bootstrap/Container";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
+import { useNavigate } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
-import { db } from "../firebase";
+import { auth, db } from "../utils/firebase";
+import ActiveJobBoard from "./ActiveJobBoard";
+import ArchiveJobBoard from "./ArchiveJobBoard";
+import JobForm from "./JobForm";
+import JobNav from "./JobNavbar";
+import Container from "react-bootstrap/Container";
 
 function JobMain() {
 	const [viewMode, setViewMode] = useState("active");
@@ -97,7 +96,7 @@ function JobMain() {
 			</Container>
 			{viewMode === "active" && (
 				<DndProvider backend={HTML5Backend}>
-					<JobBoard
+					<ActiveJobBoard
 						searchTerm={activeSearchWord}
 						handleFilterChange={handleActiveFilterChange}
 						interested={jobCategories.interested}
@@ -109,7 +108,7 @@ function JobMain() {
 				</DndProvider>
 			)}
 			{viewMode === "archive" && (
-				<JobArchive
+				<ArchiveJobBoard
 					searchTerm={archiveSearchWord}
 					jobs={jobCategories.archived}
 					handleFilterChange={handleArchiveFilterChange}

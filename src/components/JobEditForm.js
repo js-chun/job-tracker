@@ -1,18 +1,18 @@
-import React, { useState } from "react"
-import { useFormik } from "formik"
-import { updateJob } from "../crud"
-import * as Yup from "yup"
-import Row from "react-bootstrap/Row"
-import Col from "react-bootstrap/Col"
-import Button from "react-bootstrap/Button"
-import Form from "react-bootstrap/Form"
-import Modal from "react-bootstrap/Modal"
+import React, { useState } from "react";
+import { useFormik } from "formik";
+import { updateJob } from "../utils/crud";
+import * as Yup from "yup";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import Modal from "react-bootstrap/Modal";
 
 function JobEditForm(props) {
-	const { job, noCaptions } = props
-	const [show, setShow] = useState(false)
-	const handleClose = () => setShow(false)
-	const handleShow = () => setShow(true)
+	const { job, noCaptions } = props;
+	const [show, setShow] = useState(false);
+	const handleClose = () => setShow(false);
+	const handleShow = () => setShow(true);
 	const formik = useFormik({
 		initialValues: {
 			title: job.title,
@@ -58,11 +58,11 @@ function JobEditForm(props) {
 			archived: Yup.boolean(),
 		}),
 		onSubmit: (values) => {
-			updateJob(job.id, values)
-			handleClose()
-			formik.handleReset()
+			updateJob(job.id, values);
+			handleClose();
+			formik.handleReset();
 		},
-	})
+	});
 
 	return (
 		<>
@@ -242,7 +242,7 @@ function JobEditForm(props) {
 				</Form>
 			</Modal>
 		</>
-	)
+	);
 }
 
-export default JobEditForm
+export default JobEditForm;

@@ -1,7 +1,7 @@
-import React from "react"
-import Button from "react-bootstrap/Button"
-import { updateJob } from "../crud"
-import { Timestamp } from "firebase/firestore"
+import React from "react";
+import { updateJob } from "../../utils/crud";
+import { Timestamp } from "firebase/firestore";
+import Button from "react-bootstrap/Button";
 
 const configs = {
 	variant: {
@@ -14,22 +14,22 @@ const configs = {
 		archive: "archive",
 		unarchive: "arrow-undo-circle",
 	},
-}
+};
 
 function JobArchiveButton(props) {
-	const { id, type, noCaptions } = props
+	const { id, type, noCaptions } = props;
 
 	const handleClick = async () => {
 		if (type === "unarchive") {
-			await updateJob(id, { archived: false, archivedDate: "" })
+			await updateJob(id, { archived: false, archivedDate: "" });
 		} else if (type === "archive") {
-			await updateJob(id, { archived: true, archivedDate: Timestamp.now() })
+			await updateJob(id, { archived: true, archivedDate: Timestamp.now() });
 		} else if (type === "declined") {
 			await updateJob(id, {
 				status: "declined",
-			})
+			});
 		}
-	}
+	};
 
 	return (
 		<Button size="sm" variant={configs.variant[type]} onClick={handleClick}>
@@ -41,7 +41,7 @@ function JobArchiveButton(props) {
 				</small>
 			)}
 		</Button>
-	)
+	);
 }
 
-export default JobArchiveButton
+export default JobArchiveButton;

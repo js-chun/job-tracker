@@ -1,14 +1,14 @@
 import React from "react";
-import JobEditForm from "./JobEditForm";
-import JobArchiveButton from "./JobArchiveButton";
-import JobDeleteButton from "./JobDeleteButton";
-import JobLinkButton from "./JobLinkButton";
-import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
-import Badge from "react-bootstrap/Badge";
-import Stack from "react-bootstrap/Stack";
 import { useDrag } from "react-dnd";
-import { updateJob } from "../crud";
+import { updateJob } from "../utils/crud";
+import JobEditForm from "./JobEditForm";
+import JobArchiveButton from "./JobButtons/JobArchiveButton";
+import JobDeleteButton from "./JobButtons/JobDeleteButton";
+import JobLinkButton from "./JobButtons/JobLinkButton";
+import Badge from "react-bootstrap/Badge";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import Stack from "react-bootstrap/Stack";
 
 function JobCard(props) {
 	const { job, btnMode, viewMode } = props;

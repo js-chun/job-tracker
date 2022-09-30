@@ -1,16 +1,16 @@
-import React, { useEffect } from "react"
-import { Link, useNavigate } from "react-router-dom"
-import { useAuthState } from "react-firebase-hooks/auth"
-import { useFormik } from "formik"
-import * as Yup from "yup"
-import { auth } from "../firebase"
-import { registerWithEmailAndPassword } from "../authentication"
-import Container from "react-bootstrap/Container"
-import Row from "react-bootstrap/Row"
-import Col from "react-bootstrap/Col"
-import Button from "react-bootstrap/Button"
-import Form from "react-bootstrap/Form"
-import FloatingLabel from "react-bootstrap/FloatingLabel"
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { auth } from "../utils/firebase";
+import { registerWithEmailAndPassword } from "../utils/authentication";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import FloatingLabel from "react-bootstrap/FloatingLabel";
+import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
 
 function Register() {
 	const formik = useFormik({
@@ -37,20 +37,20 @@ function Register() {
 				.oneOf([Yup.ref("password")], "Passwords must match"),
 		}),
 		onSubmit: (values) => {
-			const fullName = values.fName.trim() + values.lName.trim()
-			registerWithEmailAndPassword(fullName, values.email, values.password)
+			const fullName = values.fName.trim() + values.lName.trim();
+			registerWithEmailAndPassword(fullName, values.email, values.password);
 		},
-	})
-	const [user, loading, error] = useAuthState(auth)
-	const navigate = useNavigate()
+	});
+	const [user, loading, error] = useAuthState(auth);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		if (loading) {
 			//loading screen
-			return
+			return;
 		}
-		if (user) navigate("/main")
-	}, [user, loading])
+		if (user) navigate("/main");
+	}, [user, loading]);
 
 	return (
 		<Container>
@@ -166,7 +166,7 @@ function Register() {
 				</Col>
 			</Row>
 		</Container>
-	)
+	);
 }
 
-export default Register
+export default Register;

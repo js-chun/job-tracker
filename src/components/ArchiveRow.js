@@ -1,12 +1,12 @@
-import React from "react"
-import JobArchiveButton from "./JobArchiveButton"
-import JobDeleteButton from "./JobDeleteButton"
-import JobLinkButton from "./JobLinkButton"
-import JobEditForm from "./JobEditForm"
-import Stack from "react-bootstrap/Stack"
+import React from "react";
+import JobEditForm from "./JobEditForm";
+import JobArchiveButton from "./JobButtons/JobArchiveButton";
+import JobDeleteButton from "./JobButtons/JobDeleteButton";
+import JobLinkButton from "./JobButtons/JobLinkButton";
+import Stack from "react-bootstrap/Stack";
 
-function JobArchiveRow(props) {
-	const { job } = props
+function ArchiveRow(props) {
+	const { job } = props;
 
 	return (
 		<tr>
@@ -30,7 +30,7 @@ function JobArchiveRow(props) {
 				</Stack>
 			</td>
 		</tr>
-	)
+	);
 }
 
-export default JobArchiveRow
+export default ArchiveRow;

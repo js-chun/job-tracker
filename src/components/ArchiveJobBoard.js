@@ -1,11 +1,11 @@
 import React from "react";
+import ArchiveRow from "./ArchiveRow";
 import JobSearchBar from "./JobSearchBar";
-import JobArchiveRow from "./JobArchiveRow";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Table from "react-bootstrap/Table";
 
-function JobArchive(props) {
+function ArchiveJobBoard(props) {
 	const { jobs, handleFilterChange, searchTerm } = props;
 
 	return (
@@ -40,7 +40,7 @@ function JobArchive(props) {
 				</thead>
 				<tbody>
 					{jobs.map((job) => (
-						<JobArchiveRow key={job.id} job={job} />
+						<ArchiveRow key={job.id} job={job} />
 					))}
 				</tbody>
 			</Table>
@@ -48,4 +48,4 @@ function JobArchive(props) {
 	);
 }
 
-export default JobArchive;
+export default ArchiveJobBoard;

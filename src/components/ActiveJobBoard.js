@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import JobList from "./JobList";
-import JobDeclined from "./JobDeclined";
+import JobStatusList from "./JobStatusList";
+import JobDeclined from "./DeclinedJobBoard";
 import JobSearchBar from "./JobSearchBar";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
 
 function JobBoard(props) {
 	const { handleFilterChange, searchTerm } = props;
@@ -100,7 +100,7 @@ function JobBoard(props) {
 			</Container>
 			<Row>
 				<Col>
-					<JobList
+					<JobStatusList
 						status="interested"
 						jobs={interested}
 						btnMode={btnMode}
@@ -108,7 +108,7 @@ function JobBoard(props) {
 					/>
 				</Col>
 				<Col>
-					<JobList
+					<JobStatusList
 						status="applied"
 						jobs={applied}
 						btnMode={btnMode}
@@ -116,7 +116,7 @@ function JobBoard(props) {
 					/>
 				</Col>
 				<Col>
-					<JobList
+					<JobStatusList
 						status="interview"
 						jobs={interview}
 						btnMode={btnMode}
@@ -124,7 +124,7 @@ function JobBoard(props) {
 					/>
 				</Col>
 				<Col>
-					<JobList
+					<JobStatusList
 						status="offer"
 						jobs={offer}
 						btnMode={btnMode}

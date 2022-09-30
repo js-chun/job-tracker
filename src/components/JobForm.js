@@ -1,19 +1,19 @@
-import React, { useState } from "react"
-import { useFormik } from "formik"
-import { createJob } from "../crud"
-import * as Yup from "yup"
-import { Timestamp } from "firebase/firestore"
-import Row from "react-bootstrap/Row"
-import Col from "react-bootstrap/Col"
-import Button from "react-bootstrap/Button"
-import Form from "react-bootstrap/Form"
-import Modal from "react-bootstrap/Modal"
-import { auth } from "../firebase"
+import React, { useState } from "react";
+import { Timestamp } from "firebase/firestore";
+import { createJob } from "../utils/crud";
+import { auth } from "../utils/firebase";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
+import Modal from "react-bootstrap/Modal";
+import Row from "react-bootstrap/Row";
 
 function JobForm() {
-	const [show, setShow] = useState(false)
-	const handleClose = () => setShow(false)
-	const handleShow = () => setShow(true)
+	const [show, setShow] = useState(false);
+	const handleClose = () => setShow(false);
+	const handleShow = () => setShow(true);
 	const formik = useFormik({
 		initialValues: {
 			title: "",
@@ -62,11 +62,11 @@ function JobForm() {
 				archived: false,
 				created: Timestamp.now(),
 				user: auth.currentUser.uid,
-			})
-			handleClose()
-			formik.handleReset()
+			});
+			handleClose();
+			formik.handleReset();
 		},
-	})
+	});
 
 	return (
 		<>
@@ -240,7 +240,7 @@ function JobForm() {
 				</Form>
 			</Modal>
 		</>
-	)
+	);
 }
 
-export default JobForm
+export default JobForm;
