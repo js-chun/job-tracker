@@ -26,10 +26,13 @@ function JobDeclined(props) {
 		<>
 			<ion-icon name="ban"></ion-icon>
 			<Button className="mx-2" variant="outline-danger" onClick={handleShow}>
-				Show Declined&nbsp;<Badge bg="secondary">{jobs.length}</Badge>
+				Show Declined&nbsp;
+				<Badge pill bg="secondary">
+					{jobs.length}
+				</Badge>
 			</Button>
 
-			<Offcanvas show={show} onHide={handleClose} placement="end">
+			<Offcanvas show={show} onHide={handleClose} placement="end">x
 				<Offcanvas.Header closeButton>
 					<Offcanvas.Title>Declined Jobs (Unarchived)</Offcanvas.Title>
 					{jobs && (

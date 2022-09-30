@@ -60,3 +60,17 @@ ion-icon {
     display:none;
   }
 }
+
+.job-card {
+  &__title {
+    &--head {
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    &--sub {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+  }
+}

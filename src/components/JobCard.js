@@ -1,47 +1,52 @@
-import React from "react"
-import JobEditForm from "./JobEditForm"
-import JobArchiveButton from "./JobArchiveButton"
-import JobDeleteButton from "./JobDeleteButton"
-import JobLinkButton from "./JobLinkButton"
-import Card from "react-bootstrap/Card"
-import Button from "react-bootstrap/Button"
-import Badge from "react-bootstrap/Badge"
-import Stack from "react-bootstrap/Stack"
-import { useDrag } from "react-dnd"
-import { updateJob } from "../crud"
+import React from "react";
+import JobEditForm from "./JobEditForm";
+import JobArchiveButton from "./JobArchiveButton";
+import JobDeleteButton from "./JobDeleteButton";
+import JobLinkButton from "./JobLinkButton";
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
+import Badge from "react-bootstrap/Badge";
+import Stack from "react-bootstrap/Stack";
+import { useDrag } from "react-dnd";
+import { updateJob } from "../crud";
 
 function JobCard(props) {
-	const { job, btnMode, viewMode } = props
+	const { job, btnMode, viewMode } = props;
 	const [{ opacity }, drag, preview] = useDrag(() => ({
 		type: job.status,
 		item: { id: job.id },
 		collect: (monitor) => ({
 			opacity: monitor.isDragging() ? 0.3 : 1,
 		}),
-	}))
+	}));
 
 	const handleNextStage = async () => {
-		let nextStage = "interested"
+		let nextStage = "interested";
 		if (job.status === "interested") {
-			nextStage = "applied"
+			nextStage = "applied";
 		} else if (job.status === "applied") {
-			nextStage = "interview"
+			nextStage = "interview";
 		} else if (job.status === "interview") {
-			nextStage = "offer"
+			nextStage = "offer";
 		}
-		await updateJob(job.id, { status: nextStage })
-	}
+		await updateJob(job.id, { status: nextStage });
+	};
 
 	return (
 		<Card ref={preview} style={{ opacity }}>
 			<Card.Body>
 				<Card.Title>
-					<h6>
+					<Stack className="align-items-start" direction="horizontal" gap={1}>
 						<JobLinkButton src={job.url} /> &nbsp;
-						{job.title.length <= 50
-							? job.title
-							: job.title.substr(0, 46) + "..."}
-					</h6>
+						<Stack>
+							<h6 className="job-card__title--head">
+								{job.title.length <= 50
+									? job.title
+									: job.title.substr(0, 46) + "..."}
+							</h6>
+							<small className="job-card__title--sub">{job.company}</small>
+						</Stack>
+					</Stack>
 				</Card.Title>
 				{viewMode === "all" && (
 					<>
@@ -53,9 +58,6 @@ function JobCard(props) {
 						)}{" "}
 						{job.salary && <Badge bg="secondary">{job.salary}</Badge>}
 						<ul>
-							<li>
-								<small>Company: {job.company} </small>
-							</li>
 							<li>
 								<small>Location: {job.location}</small>
 							</li>
@@ -69,7 +71,7 @@ function JobCard(props) {
 				{viewMode === "compact" && (
 					<div className="mb-1">
 						<small>
-							{job.company} / {job.location}
+							{job.location}
 							{job.type !== "unknown" && ` (${job.type.toUpperCase()})`} /{" "}
 							{job.time.toUpperCase()}
 						</small>
@@ -124,7 +126,7 @@ function JobCard(props) {
 				</small>
 			</Card.Footer>
 		</Card>
-	)
+	);
 }
 
-export default JobCard
+export default JobCard;
